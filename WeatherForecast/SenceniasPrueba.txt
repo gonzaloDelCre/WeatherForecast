@@ -1,0 +1,26 @@
+Crear Acceso:
+ {
+  "memberID": 1,
+  "accessDateTime": "2024-02-27T15:00:00Z",
+  "accessType": "Entry",
+  "accessStatus": "Approved"
+}
+crear acceso sin miembro
+{
+  "accessType": "LOGIN",
+  "accessStatus": "FAILED"
+}
+crear acceso con miembro que no existe
+{
+  "memberID": 123,
+  "accessType": "LOGIN",
+  "accessStatus": "FAILED"
+}
+
+Crear Miembro:
+{
+  "fullName": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "+1234567890",
+  "joinDate": "2024-02-27T12:00:00Z"
+}

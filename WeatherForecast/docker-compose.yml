@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  web:
+    image: your_app_image
+    build: .
+    ports:
+      - "8080:80"
+      - "8081:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTPS_PORT=8081
+      - ASPNETCORE_HTTP_PORT=8080
+      - ConnectionStrings__DefaultConnection=Server=localhost,1433;Database=WeatherForecast;User Id=sa;Password=YourPassword123;TrustServerCertificate=True;
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=YourPassword123!
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
