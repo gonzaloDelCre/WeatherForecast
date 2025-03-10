@@ -1,4 +1,4 @@
-﻿using WeatherForecast.Domain.Entities.AccessLog;
+﻿using WeatherForecast.Domain.Entities.AccessLogs;
 
 namespace WeatherForecast.Domain.Ports
 {

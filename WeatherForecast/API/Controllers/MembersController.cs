@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using WeatherForecast.Application.Member.UseCases;
-using WeatherForecast.Application.Member.DTOs;
-using WeatherForecast.Application.Member.Mapper;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherForecast.Application.Members.DTOs;
+using WeatherForecast.Application.Members.Mapper;
+using WeatherForecast.Application.Members.UseCases;
 
 namespace WeatherForecast.API.Controllers
 {

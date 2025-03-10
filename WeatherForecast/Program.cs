@@ -1,10 +1,10 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.Application.AccessLog.UseCases;
-using WeatherForecast.Application.Member.UseCases;
+using WeatherForecast.Application.AccessLogs.UseCases;
+using WeatherForecast.Application.Members.UseCases;
 using WeatherForecast.Domain.Ports;
 using WeatherForecast.Infrastructure.Persistence.DBConexion;
-using WeatherForecast.Infrastructure.Persistence.Member.Repositories;
+using WeatherForecast.Infrastructure.Persistence.Members.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ builder.Services.AddScoped<GetAllMembersUseCase>();
 builder.Services.AddScoped<GetMemberByIdUseCase>();
 
 //AccessLog
-builder.Services.AddScoped<IAccessLogsRepository, AccessLogsRepository>();
+builder.Services.AddScoped<IAccessLogsRepository, IAccessLogsRepository>();
 builder.Services.AddScoped<AccessErrorUseCase>();
 builder.Services.AddScoped<CreateAccessLogUseCase>();
 builder.Services.AddScoped<GetAccessLogByIdUseCase>();

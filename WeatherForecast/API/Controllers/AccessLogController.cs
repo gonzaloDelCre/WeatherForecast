@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WeatherForecast.Application.AccessLog.UseCases;
-using WeatherForecast.Application.AccessLog.DTOs;
-using WeatherForecast.Application.AccessLog.Mapper;
-using WeatherForecast.Domain.Ports;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherForecast.Application.AccessLogs.DTOs;
+using WeatherForecast.Application.AccessLogs.Mapper;
+using WeatherForecast.Application.AccessLogs.UseCases;
 
 [ApiController]
 [Route("api/[controller]")]

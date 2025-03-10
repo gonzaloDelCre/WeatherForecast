@@ -1,4 +1,4 @@
-﻿using WeatherForecast.Domain.Entities.Member;
+﻿using WeatherForecast.Domain.Entities.Members;
 
 namespace WeatherForecast.Domain.Ports
 {
