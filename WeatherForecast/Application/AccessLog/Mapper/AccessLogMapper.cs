@@ -1,5 +1,6 @@
 ﻿using WeatherForecast.Application.AccessLog.DTOs;
 using WeatherForecast.Domain.Entities.Shared;
+using WeatherForecast.Infrastructure.Persistence.AccessLog.Entities;
 
 namespace WeatherForecast.Application.AccessLog.Mapper
 {
@@ -42,14 +43,14 @@ namespace WeatherForecast.Application.AccessLog.Mapper
         }
 
         //Transform to Persistence Entity
-        public static Infrastructure.Persistence.Entities.AccessLogEntity ToPersistence(Domain.Entities.AccessLog.AccessLog domainEntity)
+        public static AccessLogEntity ToPersistence(Domain.Entities.AccessLog.AccessLog domainEntity)
         {
             if (domainEntity == null)
             {
                 throw new ArgumentNullException(nameof(domainEntity), "El objeto AccessLog no puede ser null");
             }
 
-            return new Infrastructure.Persistence.Entities.AccessLogEntity
+            return new Infrastructure.Persistence.AccessLog.Entities.AccessLogEntity
             {
                 AccessID = domainEntity.AccessID?.Value ?? 0,
                 MemberID = domainEntity.MemberID?.Value,

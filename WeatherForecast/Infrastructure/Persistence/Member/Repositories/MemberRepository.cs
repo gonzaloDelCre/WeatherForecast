@@ -2,32 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using WeatherForecast.Domain.Ports;
 using WeatherForecast.Infrastructure.Persistence.DBConexion;
-using WeatherForecast.Domain.Entities.Member;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
 using WeatherForecast.Domain.Entities.Shared;
+using WeatherForecast.Infrastructure.Persistence.Member.Mapper;
 
-namespace WeatherForecast.Infrastructure.Services
+
+namespace WeatherForecast.Infrastructure.Persistence.Member.Repositories
 {
     public class MemberRepository : IMemberRepository
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<MemberRepository> _logger;
+        private readonly MemberMapper _mapper;
 
-        public MemberRepository(ApplicationDbContext context, ILogger<MemberRepository> logger)
+        public MemberRepository(ApplicationDbContext context, ILogger<MemberRepository> logger, MemberMapper mapper)
         {
             _context = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
         /// <summary>
-        /// Get All Members
+        /// Get All member
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Member>> GetAllAsync()
+        public async Task<IEnumerable<Domain.Entities.Member.Member>> GetAllAsync()
         {
             try
             {
@@ -36,28 +34,21 @@ namespace WeatherForecast.Infrastructure.Services
                     .FromSqlRaw(sql)
                     .ToListAsync();
 
-                return dbMembers.Select(dbMember =>
-                    new Member(
-                        new MemberID(dbMember.MemberID),
-                        new MemberFullName(dbMember.FullName),
-                        new MemberEmail(dbMember.Email),
-                        new MemberPhone(dbMember.Phone),
-                        dbMember.JoinDate
-                    )).ToList();
+                return dbMembers.Select(dbMember => _mapper.MapToDomain(dbMember)).ToList();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error al obtener la lista de miembros");
-                return new List<Member>();
+                return new List<Domain.Entities.Member.Member>();
             }
         }
 
         /// <summary>
-        /// Get Members by ID
+        /// Get member by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Member?> GetByIdAsync(int id)
+        public async Task<Domain.Entities.Member.Member?> GetByIdAsync(int id)
         {
             try
             {
@@ -69,14 +60,7 @@ namespace WeatherForecast.Infrastructure.Services
                     .ToListAsync();
 
                 var dbMember = dbMembers.FirstOrDefault();
-                return dbMember != null ?
-                    new Member(
-                        new MemberID(dbMember.MemberID),
-                        new MemberFullName(dbMember.FullName),
-                        new MemberEmail(dbMember.Email),
-                        new MemberPhone(dbMember.Phone),
-                        dbMember.JoinDate
-                    ) : null;
+                return dbMember != null ? _mapper.MapToDomain(dbMember) : null;
             }
             catch (Exception ex)
             {
@@ -86,45 +70,12 @@ namespace WeatherForecast.Infrastructure.Services
         }
 
         /// <summary>
-        /// Get Member by Email
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        public async Task<Member?> GetByEmailAsync(string email)
-        {
-            try
-            {
-                string sql = "SELECT * FROM Members WHERE Email = @Email";
-                var parameter = new SqlParameter("@Email", email);
-
-                var dbMembers = await _context.Members
-                    .FromSqlRaw(sql, parameter)
-                    .ToListAsync();
-
-                var dbMember = dbMembers.FirstOrDefault();
-                return dbMember != null ?
-                    new Member(
-                        new MemberID(dbMember.MemberID),
-                        new MemberFullName(dbMember.FullName),
-                        new MemberEmail(dbMember.Email),
-                        new MemberPhone(dbMember.Phone),
-                        dbMember.JoinDate
-                    ) : null;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error al obtener el miembro con email {Email}", email);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Create Member
+        /// Create member 
         /// </summary>
         /// <param name="member"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<Member> AddAsync(Member member)
+        public async Task<Domain.Entities.Member.Member> AddAsync(Domain.Entities.Member.Member member)
         {
             if (member == null)
             {
@@ -152,7 +103,7 @@ namespace WeatherForecast.Infrastructure.Services
                     .Select(m => m.MemberID)
                     .FirstOrDefaultAsync();
 
-                return new Member(
+                return new Domain.Entities.Member.Member(
                     new MemberID(newMemberId),
                     member.FullName,
                     member.Email,
@@ -166,10 +117,9 @@ namespace WeatherForecast.Infrastructure.Services
                 throw;
             }
         }
-
-
+        
         /// <summary>
-        /// Delete Member
+        /// Delete member by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

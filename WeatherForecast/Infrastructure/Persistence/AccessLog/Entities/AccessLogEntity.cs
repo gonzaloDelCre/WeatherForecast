@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using WeatherForecast.Domain.Entities;
+using WeatherForecast.Infrastructure.Persistence.Member.Entities;
 
-namespace WeatherForecast.Infrastructure.Persistence.Entities
+namespace WeatherForecast.Infrastructure.Persistence.AccessLog.Entities
 {
     public class AccessLogEntity
     {

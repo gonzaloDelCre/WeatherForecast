@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
-using WeatherForecast.Infrastructure.Persistence.Entities;
+using WeatherForecast.Infrastructure.Persistence.AccessLog.Entities;
+using WeatherForecast.Infrastructure.Persistence.Member.Entities;
 
 namespace WeatherForecast.Infrastructure.Persistence.DBConexion
 {

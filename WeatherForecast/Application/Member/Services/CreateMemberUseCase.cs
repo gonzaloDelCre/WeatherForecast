@@ -21,16 +21,6 @@ namespace WeatherForecast.Application.Member.UseCases
 
         public async Task<MemberDTO> ExecuteAsync(WeatherForecast.Domain.Entities.Member.Member member)
         {
-            if (member.Email?.Value != null)
-            {
-                var existingMember = await _memberRepository.GetByEmailAsync(member.Email.Value);
-                if (existingMember != null)
-                {
-                    _logger.LogWarning("El miembro con el correo {Email} ya existe", member.Email.Value);
-                    return null;
-                }
-            }
-
             var newMember = await _memberRepository.AddAsync(member);
             _logger.LogInformation("Nuevo miembro creado: {@Member}", newMember);
 

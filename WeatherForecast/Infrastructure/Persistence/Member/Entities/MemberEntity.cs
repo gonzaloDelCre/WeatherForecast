@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using WeatherForecast.Infrastructure.Persistence.AccessLog.Entities;
 
-namespace WeatherForecast.Infrastructure.Persistence.Entities
+namespace WeatherForecast.Infrastructure.Persistence.Member.Entities
 {
     public class MemberEntity
     {

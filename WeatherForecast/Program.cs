@@ -4,7 +4,7 @@ using WeatherForecast.Application.AccessLog.UseCases;
 using WeatherForecast.Application.Member.UseCases;
 using WeatherForecast.Domain.Ports;
 using WeatherForecast.Infrastructure.Persistence.DBConexion;
-using WeatherForecast.Infrastructure.Services;
+using WeatherForecast.Infrastructure.Persistence.Member.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
